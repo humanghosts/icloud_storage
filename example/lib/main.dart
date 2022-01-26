@@ -1,6 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'dart:async';
 import 'package:icloud_storage/icloud_storage.dart';
 
 void main() {
@@ -13,8 +14,7 @@ class MyApp extends StatelessWidget {
   void handleError(dynamic err) {
     if (err is PlatformException) {
       if (err.code == PlatformExceptionCode.iCloudConnectionOrPermission) {
-        print(
-            'Platform Exception: iCloud container ID is not valid, or user is not signed in for iCloud, or user denied iCloud permission for this app');
+        print('Platform Exception: iCloud container ID is not valid, or user is not signed in for iCloud, or user denied iCloud permission for this app');
       } else {
         print('Platform Exception: ${err.message}; Details: ${err.details}');
       }

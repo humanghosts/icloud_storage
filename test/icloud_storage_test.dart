@@ -40,33 +40,19 @@ void main() {
   test('startUpload', () async {
     final iCloudStorage = await ICloudStorage.getInstance('containerId');
     await iCloudStorage.startUpload(filePath: '/dir/file');
-    expect(_methodCall.arguments, {
-      'localFilePath': '/dir/file',
-      'cloudFileName': 'file',
-      'watchUpdate': false
-    });
+    expect(_methodCall.arguments, {'localFilePath': '/dir/file', 'cloudFileName': 'file', 'watchUpdate': false});
 
-    await iCloudStorage.startUpload(
-        filePath: '/dir/file', destinationFileName: 'newFile');
-    expect(_methodCall.arguments, {
-      'localFilePath': '/dir/file',
-      'cloudFileName': 'newFile',
-      'watchUpdate': false
-    });
+    await iCloudStorage.startUpload(filePath: '/dir/file', destinationFileName: 'newFile');
+    expect(_methodCall.arguments, {'localFilePath': '/dir/file', 'cloudFileName': 'newFile', 'watchUpdate': false});
 
     await iCloudStorage.startUpload(
       filePath: '/dir/file',
       destinationFileName: 'newFile',
       onProgress: (stream) {},
     );
-    expect(_methodCall.arguments, {
-      'localFilePath': '/dir/file',
-      'cloudFileName': 'newFile',
-      'watchUpdate': true
-    });
+    expect(_methodCall.arguments, {'localFilePath': '/dir/file', 'cloudFileName': 'newFile', 'watchUpdate': true});
 
-    expect(() async => await iCloudStorage.startUpload(filePath: ''),
-        throwsException);
+    expect(() async => await iCloudStorage.startUpload(filePath: ''), throwsException);
   });
 
   test('startDownload', () async {
@@ -75,22 +61,14 @@ void main() {
       fileName: 'file',
       destinationFilePath: '/dir/file',
     );
-    expect(_methodCall.arguments, {
-      'cloudFileName': 'file',
-      'localFilePath': '/dir/file',
-      'watchUpdate': false
-    });
+    expect(_methodCall.arguments, {'cloudFileName': 'file', 'localFilePath': '/dir/file', 'watchUpdate': false});
 
     await iCloudStorage.startUpload(
       filePath: '/dir/file',
       destinationFileName: 'newFile',
       onProgress: (stream) {},
     );
-    expect(_methodCall.arguments, {
-      'localFilePath': '/dir/file',
-      'cloudFileName': 'newFile',
-      'watchUpdate': true
-    });
+    expect(_methodCall.arguments, {'localFilePath': '/dir/file', 'cloudFileName': 'newFile', 'watchUpdate': true});
 
     expect(
         () async => await iCloudStorage.startDownload(
@@ -109,9 +87,9 @@ void main() {
 
   test('delete', () async {
     final iCloudStorage = await ICloudStorage.getInstance('containerId');
-    await iCloudStorage.delete('file');
+    await iCloudStorage.delete(fileName: 'file');
     expect(_methodCall.arguments, {'cloudFileName': 'file'});
 
-    expect(() async => await iCloudStorage.delete('dir/file'), throwsException);
+    expect(() async => await iCloudStorage.delete(fileName: 'dir/file'), throwsException);
   });
 }

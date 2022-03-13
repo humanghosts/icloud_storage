@@ -24,7 +24,7 @@ class ICloudStorage {
     return _instance;
   }
 
-  static Future<bool> isAvailable() async {
+  Future<bool> isAvailable() async {
     return await _channel.invokeMethod('isAvailable');
   }
 

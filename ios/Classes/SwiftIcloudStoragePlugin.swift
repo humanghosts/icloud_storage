@@ -281,9 +281,8 @@ public class SwiftIcloudStoragePlugin: NSObject, FlutterPlugin {
         guard let fileItem = query.results.first as? NSMetadataItem else { return }
         guard let fileURL = fileItem.value(forAttribute: NSMetadataItemURLKey) as? URL else { return }
         guard let fileURLValues = try? fileURL.resourceValues(forKeys: [.ubiquitousItemIsUploadingKey]) else { return}
-        guard let isUploading = fileURLValues.ubiquitousItemIsUploading else { return }
-        
-        let streamHandler = self.streamHandlers[eventChannelName]!
+        guard let streamHandler = self.streamHandlers[eventChannelName] else { return }
+
         
         if let error = fileURLValues.ubiquitousItemUploadingError {
             DebugHelper.log("upload:onUploadQueryNotification:onError")
@@ -294,12 +293,12 @@ public class SwiftIcloudStoragePlugin: NSObject, FlutterPlugin {
         if let progress = fileItem.value(forAttribute: NSMetadataUbiquitousItemPercentUploadedKey) as? Double {
             DebugHelper.log("upload:onUploadQueryNotification:onProgress:\(progress)")
             streamHandler.setEvent(progress)
-        }
-        
-        if !isUploading {
-            streamHandler.setEvent(FlutterEndOfEventStream)
-            removeStreamHandler(eventChannelName)
-            DebugHelper.log("upload:onUploadQueryNotification:onDone")
+            if (progress >= 100) {
+              streamHandler.setEvent(FlutterEndOfEventStream)
+              removeStreamHandler(eventChannelName)
+              DebugHelper.log("upload:onUploadQueryNotification:onDone")
+
+            }
         }
     }
     

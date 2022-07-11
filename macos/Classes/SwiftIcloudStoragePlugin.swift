@@ -1,5 +1,5 @@
-import Flutter
-import UIKit
+import Cocoa
+import FlutterMacOS
 
 // icloud插件
 public class SwiftIcloudStoragePlugin: NSObject, FlutterPlugin {
@@ -17,7 +17,7 @@ public class SwiftIcloudStoragePlugin: NSObject, FlutterPlugin {
     
     // 注册插件
     public static func register(with registrar: FlutterPluginRegistrar) {
-        let messenger = registrar.messenger()
+        let messenger = registrar.messenger
         let channel = FlutterMethodChannel(name: "icloud_storage", binaryMessenger: messenger)
         let instance = SwiftIcloudStoragePlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)

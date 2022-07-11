@@ -119,7 +119,7 @@ class MyApp extends StatelessWidget {
   Future<void> testDeleteFile() async {
     try {
       final iCloudStorage = await ICloudStorage.getInstance(iCloudContainerId);
-      await iCloudStorage.delete('test_icloud_file');
+      await iCloudStorage.delete(fileName: 'test_icloud_file');
     } catch (err) {
       handleError(err);
     }
@@ -135,26 +135,11 @@ class MyApp extends StatelessWidget {
         body: Center(
           child: Column(
             children: [
-              FlatButton(
-                child: Text('List File'),
-                onPressed: testListFile,
-              ),
-              FlatButton(
-                child: Text('Watch File'),
-                onPressed: testWatchFile,
-              ),
-              FlatButton(
-                child: Text('Start Upload'),
-                onPressed: testUploadFile,
-              ),
-              FlatButton(
-                child: Text('Start Download'),
-                onPressed: testDownloadFile,
-              ),
-              FlatButton(
-                child: Text('Delete File'),
-                onPressed: testDeleteFile,
-              ),
+              ElevatedButton(child: Text('List File'), onPressed: testListFile),
+              ElevatedButton(child: Text('Watch File'), onPressed: testWatchFile),
+              ElevatedButton(child: Text('Start Upload'), onPressed: testUploadFile),
+              ElevatedButton(child: Text('Start Download'), onPressed: testDownloadFile),
+              ElevatedButton(child: Text('Delete File'), onPressed: testDeleteFile),
             ],
           ),
         ),
